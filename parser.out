@@ -1,0 +1,3010 @@
+Grammar:
+
+Rule 0     S' -> lines
+Rule 1     lines -> INTEGER statements newline
+Rule 2     lines -> INTEGER statements newline lines
+Rule 3     statements -> statement
+Rule 4     statements -> statement : statements
+Rule 5     statement -> REM
+Rule 6     statement -> WAIT value_list
+Rule 7     statement -> SYS value
+Rule 8     statement -> STOP
+Rule 9     statement -> RUN
+Rule 10    statement -> RESTORE
+Rule 11    statement -> RETURN
+Rule 12    statement -> READ id_list
+Rule 13    statement -> PRINT # INTEGER , print_list
+Rule 14    statement -> PRINT print_list
+Rule 15    statement -> POKE value_list
+Rule 16    statement -> OPEN value FOR access AS # INTEGER
+Rule 17    statement -> NEXT id_list
+Rule 18    statement -> LET ID ASSIGN expression
+Rule 19    statement -> INPUT # INTEGER , id_list
+Rule 20    statement -> INPUT id_list
+Rule 21    statement -> IF expression THEN statement ELSE statement
+Rule 22    statement -> IF expression THEN statement
+Rule 23    statement -> GOSUB expression
+Rule 24    statement -> GOTO expression
+Rule 25    statement -> FOR ID ASSIGN expression TO expression STEP INTEGER
+Rule 26    statement -> FOR ID ASSIGN expression TO expression
+Rule 27    statement -> END
+Rule 28    statement -> DIM ID ( integer_list )  [precedence=left, level=3]
+Rule 29    statement -> DATA constant_list
+Rule 30    statement -> CLOSE # INTEGER
+Rule 31    access -> OUPUT
+Rule 32    access -> INPUT
+Rule 33    id_list -> ID
+Rule 34    id_list -> ID , id_list
+Rule 35    value_list -> value
+Rule 36    value_list -> value , value_list
+Rule 37    constant_list -> constant
+Rule 38    constant_list -> constant , constant_list
+Rule 39    integer_list -> INTEGER
+Rule 40    integer_list -> INTEGER , integer_list
+Rule 41    expression_list -> expression
+Rule 42    expression_list -> expression , expression_list
+Rule 43    print_list -> expression
+Rule 44    print_list -> expression ; print_list
+Rule 45    expression -> and_exp
+Rule 46    expression -> and_exp OR expression
+Rule 47    and_exp -> not_exp
+Rule 48    and_exp -> not_exp AND and_exp
+Rule 49    not_exp -> compare_exp
+Rule 50    not_exp -> NOT compare_exp
+Rule 51    compare_exp -> add_exp
+Rule 52    compare_exp -> add_exp LE compare_exp
+Rule 53    compare_exp -> add_exp LT compare_exp
+Rule 54    compare_exp -> add_exp GE compare_exp
+Rule 55    compare_exp -> add_exp GT compare_exp
+Rule 56    compare_exp -> add_exp EQ compare_exp
+Rule 57    compare_exp -> add_exp NE compare_exp
+Rule 58    compare_exp -> add_exp ASSIGN compare_exp
+Rule 59    add_exp -> mult_exp
+Rule 60    add_exp -> mult_exp - add_exp  [precedence=left, level=1]
+Rule 61    add_exp -> mult_exp + add_exp  [precedence=left, level=1]
+Rule 62    mult_exp -> negate_exp
+Rule 63    mult_exp -> negate_exp / mult_exp  [precedence=left, level=2]
+Rule 64    mult_exp -> negate_exp * mult_exp  [precedence=left, level=2]
+Rule 65    negate_exp -> power_exp
+Rule 66    negate_exp -> - power_exp  [precedence=left, level=1]
+Rule 67    power_exp -> value
+Rule 68    power_exp -> power_exp ^ value
+Rule 69    value -> constant
+Rule 70    value -> ID ( expression_list )  [precedence=left, level=3]
+Rule 71    value -> ID
+Rule 72    value -> ( expression )  [precedence=left, level=3]
+Rule 73    constant -> STRING
+Rule 74    constant -> INTEGER
+Rule 75    newline -> CR
+Rule 76    newline -> CR LF
+
+Terminals, with rules where they appear:
+
+#                    : 13 16 19 30
+(                    : 28 70 72
+)                    : 28 70 72
+*                    : 64
++                    : 61
+,                    : 13 19 34 36 38 40 42
+-                    : 60 66
+/                    : 63
+:                    : 4
+;                    : 44
+AND                  : 48
+AS                   : 16
+ASSIGN               : 18 25 26 58
+CLOSE                : 30
+CR                   : 75 76
+DATA                 : 29
+DIM                  : 28
+ELSE                 : 21
+END                  : 27
+EQ                   : 56
+FOR                  : 16 25 26
+GE                   : 54
+GOSUB                : 23
+GOTO                 : 24
+GT                   : 55
+ID                   : 18 25 26 28 33 34 70 71
+IF                   : 21 22
+INPUT                : 19 20 32
+INTEGER              : 1 2 13 16 19 25 30 39 40 74
+LE                   : 52
+LET                  : 18
+LF                   : 76
+LT                   : 53
+NE                   : 57
+NEXT                 : 17
+NOT                  : 50
+OPEN                 : 16
+OR                   : 46
+OUPUT                : 31
+POKE                 : 15
+PRINT                : 13 14
+READ                 : 12
+REM                  : 5
+RESTORE              : 10
+RETURN               : 11
+RUN                  : 9
+STEP                 : 25
+STOP                 : 8
+STRING               : 73
+SYS                  : 7
+THEN                 : 21 22
+TO                   : 25 26
+WAIT                 : 6
+^                    : 68
+error                : 
+
+Nonterminals, with rules where they appear:
+
+access               : 16
+add_exp              : 51 52 53 54 55 56 57 58 60 61
+and_exp              : 45 46 48
+compare_exp          : 49 50 52 53 54 55 56 57 58
+constant             : 37 38 69
+constant_list        : 29 38
+expression           : 18 21 22 23 24 25 25 26 26 41 42 43 44 46 72
+expression_list      : 42 70
+id_list              : 12 17 19 20 34
+integer_list         : 28 40
+lines                : 2 0
+mult_exp             : 59 60 61 63 64
+negate_exp           : 62 63 64
+newline              : 1 2
+not_exp              : 47 48
+power_exp            : 65 66 68
+print_list           : 13 14 44
+statement            : 3 4 21 21 22
+statements           : 1 2 4
+value                : 7 16 35 36 67 68
+value_list           : 6 15 36
+
+
+state 0
+
+    (0) S' -> . lines
+    (1) lines -> . INTEGER statements newline
+    (2) lines -> . INTEGER statements newline lines
+    INTEGER         shift and go to state 2
+
+    lines                          shift and go to state 1
+
+state 1
+
+    (0) S' -> lines .
+
+
+state 2
+
+    (1) lines -> INTEGER . statements newline
+    (2) lines -> INTEGER . statements newline lines
+    (3) statements -> . statement
+    (4) statements -> . statement : statements
+    (5) statement -> . REM
+    (6) statement -> . WAIT value_list
+    (7) statement -> . SYS value
+    (8) statement -> . STOP
+    (9) statement -> . RUN
+    (10) statement -> . RESTORE
+    (11) statement -> . RETURN
+    (12) statement -> . READ id_list
+    (13) statement -> . PRINT # INTEGER , print_list
+    (14) statement -> . PRINT print_list
+    (15) statement -> . POKE value_list
+    (16) statement -> . OPEN value FOR access AS # INTEGER
+    (17) statement -> . NEXT id_list
+    (18) statement -> . LET ID ASSIGN expression
+    (19) statement -> . INPUT # INTEGER , id_list
+    (20) statement -> . INPUT id_list
+    (21) statement -> . IF expression THEN statement ELSE statement
+    (22) statement -> . IF expression THEN statement
+    (23) statement -> . GOSUB expression
+    (24) statement -> . GOTO expression
+    (25) statement -> . FOR ID ASSIGN expression TO expression STEP INTEGER
+    (26) statement -> . FOR ID ASSIGN expression TO expression
+    (27) statement -> . END
+    (28) statement -> . DIM ID ( integer_list )
+    (29) statement -> . DATA constant_list
+    (30) statement -> . CLOSE # INTEGER
+    REM             shift and go to state 5
+    WAIT            shift and go to state 6
+    SYS             shift and go to state 7
+    STOP            shift and go to state 8
+    RUN             shift and go to state 9
+    RESTORE         shift and go to state 10
+    RETURN          shift and go to state 11
+    READ            shift and go to state 12
+    PRINT           shift and go to state 13
+    POKE            shift and go to state 14
+    OPEN            shift and go to state 15
+    NEXT            shift and go to state 17
+    LET             shift and go to state 18
+    INPUT           shift and go to state 19
+    IF              shift and go to state 20
+    GOSUB           shift and go to state 21
+    GOTO            shift and go to state 22
+    FOR             shift and go to state 16
+    END             shift and go to state 23
+    DIM             shift and go to state 24
+    DATA            shift and go to state 25
+    CLOSE           shift and go to state 26
+
+    statements                     shift and go to state 3
+    statement                      shift and go to state 4
+
+state 3
+
+    (1) lines -> INTEGER statements . newline
+    (2) lines -> INTEGER statements . newline lines
+    (75) newline -> . CR
+    (76) newline -> . CR LF
+    CR              shift and go to state 28
+
+    newline                        shift and go to state 27
+
+state 4
+
+    (3) statements -> statement .
+    (4) statements -> statement . : statements
+    CR              reduce using rule 3 (statements -> statement .)
+    :               shift and go to state 29
+
+
+state 5
+
+    (5) statement -> REM .
+    :               reduce using rule 5 (statement -> REM .)
+    CR              reduce using rule 5 (statement -> REM .)
+    ELSE            reduce using rule 5 (statement -> REM .)
+
+
+state 6
+
+    (6) statement -> WAIT . value_list
+    (35) value_list -> . value
+    (36) value_list -> . value , value_list
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    value_list                     shift and go to state 30
+    value                          shift and go to state 31
+    constant                       shift and go to state 32
+
+state 7
+
+    (7) statement -> SYS . value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    value                          shift and go to state 37
+    constant                       shift and go to state 32
+
+state 8
+
+    (8) statement -> STOP .
+    :               reduce using rule 8 (statement -> STOP .)
+    CR              reduce using rule 8 (statement -> STOP .)
+    ELSE            reduce using rule 8 (statement -> STOP .)
+
+
+state 9
+
+    (9) statement -> RUN .
+    :               reduce using rule 9 (statement -> RUN .)
+    CR              reduce using rule 9 (statement -> RUN .)
+    ELSE            reduce using rule 9 (statement -> RUN .)
+
+
+state 10
+
+    (10) statement -> RESTORE .
+    :               reduce using rule 10 (statement -> RESTORE .)
+    CR              reduce using rule 10 (statement -> RESTORE .)
+    ELSE            reduce using rule 10 (statement -> RESTORE .)
+
+
+state 11
+
+    (11) statement -> RETURN .
+    :               reduce using rule 11 (statement -> RETURN .)
+    CR              reduce using rule 11 (statement -> RETURN .)
+    ELSE            reduce using rule 11 (statement -> RETURN .)
+
+
+state 12
+
+    (12) statement -> READ . id_list
+    (33) id_list -> . ID
+    (34) id_list -> . ID , id_list
+    ID              shift and go to state 39
+
+    id_list                        shift and go to state 38
+
+state 13
+
+    (13) statement -> PRINT . # INTEGER , print_list
+    (14) statement -> PRINT . print_list
+    (43) print_list -> . expression
+    (44) print_list -> . expression ; print_list
+    (45) expression -> . and_exp
+    (46) expression -> . and_exp OR expression
+    (47) and_exp -> . not_exp
+    (48) and_exp -> . not_exp AND and_exp
+    (49) not_exp -> . compare_exp
+    (50) not_exp -> . NOT compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    #               shift and go to state 40
+    NOT             shift and go to state 46
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    print_list                     shift and go to state 41
+    expression                     shift and go to state 42
+    and_exp                        shift and go to state 43
+    not_exp                        shift and go to state 44
+    compare_exp                    shift and go to state 45
+    add_exp                        shift and go to state 47
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 14
+
+    (15) statement -> POKE . value_list
+    (35) value_list -> . value
+    (36) value_list -> . value , value_list
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    value_list                     shift and go to state 53
+    value                          shift and go to state 31
+    constant                       shift and go to state 32
+
+state 15
+
+    (16) statement -> OPEN . value FOR access AS # INTEGER
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    value                          shift and go to state 54
+    constant                       shift and go to state 32
+
+state 16
+
+    (25) statement -> FOR . ID ASSIGN expression TO expression STEP INTEGER
+    (26) statement -> FOR . ID ASSIGN expression TO expression
+    ID              shift and go to state 55
+
+
+state 17
+
+    (17) statement -> NEXT . id_list
+    (33) id_list -> . ID
+    (34) id_list -> . ID , id_list
+    ID              shift and go to state 39
+
+    id_list                        shift and go to state 56
+
+state 18
+
+    (18) statement -> LET . ID ASSIGN expression
+    ID              shift and go to state 57
+
+
+state 19
+
+    (19) statement -> INPUT . # INTEGER , id_list
+    (20) statement -> INPUT . id_list
+    (33) id_list -> . ID
+    (34) id_list -> . ID , id_list
+    #               shift and go to state 58
+    ID              shift and go to state 39
+
+    id_list                        shift and go to state 59
+
+state 20
+
+    (21) statement -> IF . expression THEN statement ELSE statement
+    (22) statement -> IF . expression THEN statement
+    (45) expression -> . and_exp
+    (46) expression -> . and_exp OR expression
+    (47) and_exp -> . not_exp
+    (48) and_exp -> . not_exp AND and_exp
+    (49) not_exp -> . compare_exp
+    (50) not_exp -> . NOT compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    NOT             shift and go to state 46
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    expression                     shift and go to state 60
+    and_exp                        shift and go to state 43
+    not_exp                        shift and go to state 44
+    compare_exp                    shift and go to state 45
+    add_exp                        shift and go to state 47
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 21
+
+    (23) statement -> GOSUB . expression
+    (45) expression -> . and_exp
+    (46) expression -> . and_exp OR expression
+    (47) and_exp -> . not_exp
+    (48) and_exp -> . not_exp AND and_exp
+    (49) not_exp -> . compare_exp
+    (50) not_exp -> . NOT compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    NOT             shift and go to state 46
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    expression                     shift and go to state 61
+    and_exp                        shift and go to state 43
+    not_exp                        shift and go to state 44
+    compare_exp                    shift and go to state 45
+    add_exp                        shift and go to state 47
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 22
+
+    (24) statement -> GOTO . expression
+    (45) expression -> . and_exp
+    (46) expression -> . and_exp OR expression
+    (47) and_exp -> . not_exp
+    (48) and_exp -> . not_exp AND and_exp
+    (49) not_exp -> . compare_exp
+    (50) not_exp -> . NOT compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    NOT             shift and go to state 46
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    expression                     shift and go to state 62
+    and_exp                        shift and go to state 43
+    not_exp                        shift and go to state 44
+    compare_exp                    shift and go to state 45
+    add_exp                        shift and go to state 47
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 23
+
+    (27) statement -> END .
+    :               reduce using rule 27 (statement -> END .)
+    CR              reduce using rule 27 (statement -> END .)
+    ELSE            reduce using rule 27 (statement -> END .)
+
+
+state 24
+
+    (28) statement -> DIM . ID ( integer_list )
+    ID              shift and go to state 63
+
+
+state 25
+
+    (29) statement -> DATA . constant_list
+    (37) constant_list -> . constant
+    (38) constant_list -> . constant , constant_list
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    constant_list                  shift and go to state 64
+    constant                       shift and go to state 65
+
+state 26
+
+    (30) statement -> CLOSE . # INTEGER
+    #               shift and go to state 66
+
+
+state 27
+
+    (1) lines -> INTEGER statements newline .
+    (2) lines -> INTEGER statements newline . lines
+    (1) lines -> . INTEGER statements newline
+    (2) lines -> . INTEGER statements newline lines
+    $end            reduce using rule 1 (lines -> INTEGER statements newline .)
+    INTEGER         shift and go to state 2
+
+    lines                          shift and go to state 67
+
+state 28
+
+    (75) newline -> CR .
+    (76) newline -> CR . LF
+    INTEGER         reduce using rule 75 (newline -> CR .)
+    $end            reduce using rule 75 (newline -> CR .)
+    LF              shift and go to state 68
+
+
+state 29
+
+    (4) statements -> statement : . statements
+    (3) statements -> . statement
+    (4) statements -> . statement : statements
+    (5) statement -> . REM
+    (6) statement -> . WAIT value_list
+    (7) statement -> . SYS value
+    (8) statement -> . STOP
+    (9) statement -> . RUN
+    (10) statement -> . RESTORE
+    (11) statement -> . RETURN
+    (12) statement -> . READ id_list
+    (13) statement -> . PRINT # INTEGER , print_list
+    (14) statement -> . PRINT print_list
+    (15) statement -> . POKE value_list
+    (16) statement -> . OPEN value FOR access AS # INTEGER
+    (17) statement -> . NEXT id_list
+    (18) statement -> . LET ID ASSIGN expression
+    (19) statement -> . INPUT # INTEGER , id_list
+    (20) statement -> . INPUT id_list
+    (21) statement -> . IF expression THEN statement ELSE statement
+    (22) statement -> . IF expression THEN statement
+    (23) statement -> . GOSUB expression
+    (24) statement -> . GOTO expression
+    (25) statement -> . FOR ID ASSIGN expression TO expression STEP INTEGER
+    (26) statement -> . FOR ID ASSIGN expression TO expression
+    (27) statement -> . END
+    (28) statement -> . DIM ID ( integer_list )
+    (29) statement -> . DATA constant_list
+    (30) statement -> . CLOSE # INTEGER
+    REM             shift and go to state 5
+    WAIT            shift and go to state 6
+    SYS             shift and go to state 7
+    STOP            shift and go to state 8
+    RUN             shift and go to state 9
+    RESTORE         shift and go to state 10
+    RETURN          shift and go to state 11
+    READ            shift and go to state 12
+    PRINT           shift and go to state 13
+    POKE            shift and go to state 14
+    OPEN            shift and go to state 15
+    NEXT            shift and go to state 17
+    LET             shift and go to state 18
+    INPUT           shift and go to state 19
+    IF              shift and go to state 20
+    GOSUB           shift and go to state 21
+    GOTO            shift and go to state 22
+    FOR             shift and go to state 16
+    END             shift and go to state 23
+    DIM             shift and go to state 24
+    DATA            shift and go to state 25
+    CLOSE           shift and go to state 26
+
+    statement                      shift and go to state 4
+    statements                     shift and go to state 69
+
+state 30
+
+    (6) statement -> WAIT value_list .
+    :               reduce using rule 6 (statement -> WAIT value_list .)
+    CR              reduce using rule 6 (statement -> WAIT value_list .)
+    ELSE            reduce using rule 6 (statement -> WAIT value_list .)
+
+
+state 31
+
+    (35) value_list -> value .
+    (36) value_list -> value . , value_list
+    :               reduce using rule 35 (value_list -> value .)
+    CR              reduce using rule 35 (value_list -> value .)
+    ELSE            reduce using rule 35 (value_list -> value .)
+    ,               shift and go to state 70
+
+
+state 32
+
+    (69) value -> constant .
+    ,               reduce using rule 69 (value -> constant .)
+    :               reduce using rule 69 (value -> constant .)
+    CR              reduce using rule 69 (value -> constant .)
+    ELSE            reduce using rule 69 (value -> constant .)
+    ^               reduce using rule 69 (value -> constant .)
+    /               reduce using rule 69 (value -> constant .)
+    *               reduce using rule 69 (value -> constant .)
+    -               reduce using rule 69 (value -> constant .)
+    +               reduce using rule 69 (value -> constant .)
+    LE              reduce using rule 69 (value -> constant .)
+    LT              reduce using rule 69 (value -> constant .)
+    GE              reduce using rule 69 (value -> constant .)
+    GT              reduce using rule 69 (value -> constant .)
+    EQ              reduce using rule 69 (value -> constant .)
+    NE              reduce using rule 69 (value -> constant .)
+    ASSIGN          reduce using rule 69 (value -> constant .)
+    AND             reduce using rule 69 (value -> constant .)
+    OR              reduce using rule 69 (value -> constant .)
+    ;               reduce using rule 69 (value -> constant .)
+    FOR             reduce using rule 69 (value -> constant .)
+    THEN            reduce using rule 69 (value -> constant .)
+    )               reduce using rule 69 (value -> constant .)
+    TO              reduce using rule 69 (value -> constant .)
+    STEP            reduce using rule 69 (value -> constant .)
+
+
+state 33
+
+    (70) value -> ID . ( expression_list )
+    (71) value -> ID .
+    (               shift and go to state 71
+    ,               reduce using rule 71 (value -> ID .)
+    :               reduce using rule 71 (value -> ID .)
+    CR              reduce using rule 71 (value -> ID .)
+    ELSE            reduce using rule 71 (value -> ID .)
+    ^               reduce using rule 71 (value -> ID .)
+    /               reduce using rule 71 (value -> ID .)
+    *               reduce using rule 71 (value -> ID .)
+    -               reduce using rule 71 (value -> ID .)
+    +               reduce using rule 71 (value -> ID .)
+    LE              reduce using rule 71 (value -> ID .)
+    LT              reduce using rule 71 (value -> ID .)
+    GE              reduce using rule 71 (value -> ID .)
+    GT              reduce using rule 71 (value -> ID .)
+    EQ              reduce using rule 71 (value -> ID .)
+    NE              reduce using rule 71 (value -> ID .)
+    ASSIGN          reduce using rule 71 (value -> ID .)
+    AND             reduce using rule 71 (value -> ID .)
+    OR              reduce using rule 71 (value -> ID .)
+    ;               reduce using rule 71 (value -> ID .)
+    FOR             reduce using rule 71 (value -> ID .)
+    THEN            reduce using rule 71 (value -> ID .)
+    )               reduce using rule 71 (value -> ID .)
+    TO              reduce using rule 71 (value -> ID .)
+    STEP            reduce using rule 71 (value -> ID .)
+
+
+state 34
+
+    (72) value -> ( . expression )
+    (45) expression -> . and_exp
+    (46) expression -> . and_exp OR expression
+    (47) and_exp -> . not_exp
+    (48) and_exp -> . not_exp AND and_exp
+    (49) not_exp -> . compare_exp
+    (50) not_exp -> . NOT compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    NOT             shift and go to state 46
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    expression                     shift and go to state 72
+    and_exp                        shift and go to state 43
+    not_exp                        shift and go to state 44
+    compare_exp                    shift and go to state 45
+    add_exp                        shift and go to state 47
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 35
+
+    (73) constant -> STRING .
+    ,               reduce using rule 73 (constant -> STRING .)
+    :               reduce using rule 73 (constant -> STRING .)
+    CR              reduce using rule 73 (constant -> STRING .)
+    ELSE            reduce using rule 73 (constant -> STRING .)
+    ^               reduce using rule 73 (constant -> STRING .)
+    /               reduce using rule 73 (constant -> STRING .)
+    *               reduce using rule 73 (constant -> STRING .)
+    -               reduce using rule 73 (constant -> STRING .)
+    +               reduce using rule 73 (constant -> STRING .)
+    LE              reduce using rule 73 (constant -> STRING .)
+    LT              reduce using rule 73 (constant -> STRING .)
+    GE              reduce using rule 73 (constant -> STRING .)
+    GT              reduce using rule 73 (constant -> STRING .)
+    EQ              reduce using rule 73 (constant -> STRING .)
+    NE              reduce using rule 73 (constant -> STRING .)
+    ASSIGN          reduce using rule 73 (constant -> STRING .)
+    AND             reduce using rule 73 (constant -> STRING .)
+    OR              reduce using rule 73 (constant -> STRING .)
+    ;               reduce using rule 73 (constant -> STRING .)
+    FOR             reduce using rule 73 (constant -> STRING .)
+    THEN            reduce using rule 73 (constant -> STRING .)
+    )               reduce using rule 73 (constant -> STRING .)
+    TO              reduce using rule 73 (constant -> STRING .)
+    STEP            reduce using rule 73 (constant -> STRING .)
+
+
+state 36
+
+    (74) constant -> INTEGER .
+    ,               reduce using rule 74 (constant -> INTEGER .)
+    :               reduce using rule 74 (constant -> INTEGER .)
+    CR              reduce using rule 74 (constant -> INTEGER .)
+    ELSE            reduce using rule 74 (constant -> INTEGER .)
+    ^               reduce using rule 74 (constant -> INTEGER .)
+    /               reduce using rule 74 (constant -> INTEGER .)
+    *               reduce using rule 74 (constant -> INTEGER .)
+    -               reduce using rule 74 (constant -> INTEGER .)
+    +               reduce using rule 74 (constant -> INTEGER .)
+    LE              reduce using rule 74 (constant -> INTEGER .)
+    LT              reduce using rule 74 (constant -> INTEGER .)
+    GE              reduce using rule 74 (constant -> INTEGER .)
+    GT              reduce using rule 74 (constant -> INTEGER .)
+    EQ              reduce using rule 74 (constant -> INTEGER .)
+    NE              reduce using rule 74 (constant -> INTEGER .)
+    ASSIGN          reduce using rule 74 (constant -> INTEGER .)
+    AND             reduce using rule 74 (constant -> INTEGER .)
+    OR              reduce using rule 74 (constant -> INTEGER .)
+    ;               reduce using rule 74 (constant -> INTEGER .)
+    FOR             reduce using rule 74 (constant -> INTEGER .)
+    THEN            reduce using rule 74 (constant -> INTEGER .)
+    )               reduce using rule 74 (constant -> INTEGER .)
+    TO              reduce using rule 74 (constant -> INTEGER .)
+    STEP            reduce using rule 74 (constant -> INTEGER .)
+
+
+state 37
+
+    (7) statement -> SYS value .
+    :               reduce using rule 7 (statement -> SYS value .)
+    CR              reduce using rule 7 (statement -> SYS value .)
+    ELSE            reduce using rule 7 (statement -> SYS value .)
+
+
+state 38
+
+    (12) statement -> READ id_list .
+    :               reduce using rule 12 (statement -> READ id_list .)
+    CR              reduce using rule 12 (statement -> READ id_list .)
+    ELSE            reduce using rule 12 (statement -> READ id_list .)
+
+
+state 39
+
+    (33) id_list -> ID .
+    (34) id_list -> ID . , id_list
+    :               reduce using rule 33 (id_list -> ID .)
+    CR              reduce using rule 33 (id_list -> ID .)
+    ELSE            reduce using rule 33 (id_list -> ID .)
+    ,               shift and go to state 73
+
+
+state 40
+
+    (13) statement -> PRINT # . INTEGER , print_list
+    INTEGER         shift and go to state 74
+
+
+state 41
+
+    (14) statement -> PRINT print_list .
+    :               reduce using rule 14 (statement -> PRINT print_list .)
+    CR              reduce using rule 14 (statement -> PRINT print_list .)
+    ELSE            reduce using rule 14 (statement -> PRINT print_list .)
+
+
+state 42
+
+    (43) print_list -> expression .
+    (44) print_list -> expression . ; print_list
+    :               reduce using rule 43 (print_list -> expression .)
+    CR              reduce using rule 43 (print_list -> expression .)
+    ELSE            reduce using rule 43 (print_list -> expression .)
+    ;               shift and go to state 75
+
+
+state 43
+
+    (45) expression -> and_exp .
+    (46) expression -> and_exp . OR expression
+    ;               reduce using rule 45 (expression -> and_exp .)
+    :               reduce using rule 45 (expression -> and_exp .)
+    CR              reduce using rule 45 (expression -> and_exp .)
+    ELSE            reduce using rule 45 (expression -> and_exp .)
+    THEN            reduce using rule 45 (expression -> and_exp .)
+    )               reduce using rule 45 (expression -> and_exp .)
+    ,               reduce using rule 45 (expression -> and_exp .)
+    TO              reduce using rule 45 (expression -> and_exp .)
+    STEP            reduce using rule 45 (expression -> and_exp .)
+    OR              shift and go to state 76
+
+
+state 44
+
+    (47) and_exp -> not_exp .
+    (48) and_exp -> not_exp . AND and_exp
+    OR              reduce using rule 47 (and_exp -> not_exp .)
+    ;               reduce using rule 47 (and_exp -> not_exp .)
+    :               reduce using rule 47 (and_exp -> not_exp .)
+    CR              reduce using rule 47 (and_exp -> not_exp .)
+    ELSE            reduce using rule 47 (and_exp -> not_exp .)
+    THEN            reduce using rule 47 (and_exp -> not_exp .)
+    )               reduce using rule 47 (and_exp -> not_exp .)
+    ,               reduce using rule 47 (and_exp -> not_exp .)
+    TO              reduce using rule 47 (and_exp -> not_exp .)
+    STEP            reduce using rule 47 (and_exp -> not_exp .)
+    AND             shift and go to state 77
+
+
+state 45
+
+    (49) not_exp -> compare_exp .
+    AND             reduce using rule 49 (not_exp -> compare_exp .)
+    OR              reduce using rule 49 (not_exp -> compare_exp .)
+    ;               reduce using rule 49 (not_exp -> compare_exp .)
+    :               reduce using rule 49 (not_exp -> compare_exp .)
+    CR              reduce using rule 49 (not_exp -> compare_exp .)
+    ELSE            reduce using rule 49 (not_exp -> compare_exp .)
+    THEN            reduce using rule 49 (not_exp -> compare_exp .)
+    )               reduce using rule 49 (not_exp -> compare_exp .)
+    ,               reduce using rule 49 (not_exp -> compare_exp .)
+    TO              reduce using rule 49 (not_exp -> compare_exp .)
+    STEP            reduce using rule 49 (not_exp -> compare_exp .)
+
+
+state 46
+
+    (50) not_exp -> NOT . compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    compare_exp                    shift and go to state 78
+    add_exp                        shift and go to state 47
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 47
+
+    (51) compare_exp -> add_exp .
+    (52) compare_exp -> add_exp . LE compare_exp
+    (53) compare_exp -> add_exp . LT compare_exp
+    (54) compare_exp -> add_exp . GE compare_exp
+    (55) compare_exp -> add_exp . GT compare_exp
+    (56) compare_exp -> add_exp . EQ compare_exp
+    (57) compare_exp -> add_exp . NE compare_exp
+    (58) compare_exp -> add_exp . ASSIGN compare_exp
+    AND             reduce using rule 51 (compare_exp -> add_exp .)
+    OR              reduce using rule 51 (compare_exp -> add_exp .)
+    ;               reduce using rule 51 (compare_exp -> add_exp .)
+    :               reduce using rule 51 (compare_exp -> add_exp .)
+    CR              reduce using rule 51 (compare_exp -> add_exp .)
+    ELSE            reduce using rule 51 (compare_exp -> add_exp .)
+    THEN            reduce using rule 51 (compare_exp -> add_exp .)
+    )               reduce using rule 51 (compare_exp -> add_exp .)
+    ,               reduce using rule 51 (compare_exp -> add_exp .)
+    TO              reduce using rule 51 (compare_exp -> add_exp .)
+    STEP            reduce using rule 51 (compare_exp -> add_exp .)
+    LE              shift and go to state 79
+    LT              shift and go to state 80
+    GE              shift and go to state 81
+    GT              shift and go to state 82
+    EQ              shift and go to state 83
+    NE              shift and go to state 84
+    ASSIGN          shift and go to state 85
+
+
+state 48
+
+    (59) add_exp -> mult_exp .
+    (60) add_exp -> mult_exp . - add_exp
+    (61) add_exp -> mult_exp . + add_exp
+    LE              reduce using rule 59 (add_exp -> mult_exp .)
+    LT              reduce using rule 59 (add_exp -> mult_exp .)
+    GE              reduce using rule 59 (add_exp -> mult_exp .)
+    GT              reduce using rule 59 (add_exp -> mult_exp .)
+    EQ              reduce using rule 59 (add_exp -> mult_exp .)
+    NE              reduce using rule 59 (add_exp -> mult_exp .)
+    ASSIGN          reduce using rule 59 (add_exp -> mult_exp .)
+    AND             reduce using rule 59 (add_exp -> mult_exp .)
+    OR              reduce using rule 59 (add_exp -> mult_exp .)
+    ;               reduce using rule 59 (add_exp -> mult_exp .)
+    :               reduce using rule 59 (add_exp -> mult_exp .)
+    CR              reduce using rule 59 (add_exp -> mult_exp .)
+    ELSE            reduce using rule 59 (add_exp -> mult_exp .)
+    THEN            reduce using rule 59 (add_exp -> mult_exp .)
+    )               reduce using rule 59 (add_exp -> mult_exp .)
+    ,               reduce using rule 59 (add_exp -> mult_exp .)
+    TO              reduce using rule 59 (add_exp -> mult_exp .)
+    STEP            reduce using rule 59 (add_exp -> mult_exp .)
+    -               shift and go to state 86
+    +               shift and go to state 87
+
+
+state 49
+
+    (66) negate_exp -> - . power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    power_exp                      shift and go to state 88
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 50
+
+    (62) mult_exp -> negate_exp .
+    (63) mult_exp -> negate_exp . / mult_exp
+    (64) mult_exp -> negate_exp . * mult_exp
+    -               reduce using rule 62 (mult_exp -> negate_exp .)
+    +               reduce using rule 62 (mult_exp -> negate_exp .)
+    LE              reduce using rule 62 (mult_exp -> negate_exp .)
+    LT              reduce using rule 62 (mult_exp -> negate_exp .)
+    GE              reduce using rule 62 (mult_exp -> negate_exp .)
+    GT              reduce using rule 62 (mult_exp -> negate_exp .)
+    EQ              reduce using rule 62 (mult_exp -> negate_exp .)
+    NE              reduce using rule 62 (mult_exp -> negate_exp .)
+    ASSIGN          reduce using rule 62 (mult_exp -> negate_exp .)
+    AND             reduce using rule 62 (mult_exp -> negate_exp .)
+    OR              reduce using rule 62 (mult_exp -> negate_exp .)
+    ;               reduce using rule 62 (mult_exp -> negate_exp .)
+    :               reduce using rule 62 (mult_exp -> negate_exp .)
+    CR              reduce using rule 62 (mult_exp -> negate_exp .)
+    ELSE            reduce using rule 62 (mult_exp -> negate_exp .)
+    THEN            reduce using rule 62 (mult_exp -> negate_exp .)
+    )               reduce using rule 62 (mult_exp -> negate_exp .)
+    ,               reduce using rule 62 (mult_exp -> negate_exp .)
+    TO              reduce using rule 62 (mult_exp -> negate_exp .)
+    STEP            reduce using rule 62 (mult_exp -> negate_exp .)
+    /               shift and go to state 89
+    *               shift and go to state 90
+
+
+state 51
+
+    (65) negate_exp -> power_exp .
+    (68) power_exp -> power_exp . ^ value
+    /               reduce using rule 65 (negate_exp -> power_exp .)
+    *               reduce using rule 65 (negate_exp -> power_exp .)
+    -               reduce using rule 65 (negate_exp -> power_exp .)
+    +               reduce using rule 65 (negate_exp -> power_exp .)
+    LE              reduce using rule 65 (negate_exp -> power_exp .)
+    LT              reduce using rule 65 (negate_exp -> power_exp .)
+    GE              reduce using rule 65 (negate_exp -> power_exp .)
+    GT              reduce using rule 65 (negate_exp -> power_exp .)
+    EQ              reduce using rule 65 (negate_exp -> power_exp .)
+    NE              reduce using rule 65 (negate_exp -> power_exp .)
+    ASSIGN          reduce using rule 65 (negate_exp -> power_exp .)
+    AND             reduce using rule 65 (negate_exp -> power_exp .)
+    OR              reduce using rule 65 (negate_exp -> power_exp .)
+    ;               reduce using rule 65 (negate_exp -> power_exp .)
+    :               reduce using rule 65 (negate_exp -> power_exp .)
+    CR              reduce using rule 65 (negate_exp -> power_exp .)
+    ELSE            reduce using rule 65 (negate_exp -> power_exp .)
+    THEN            reduce using rule 65 (negate_exp -> power_exp .)
+    )               reduce using rule 65 (negate_exp -> power_exp .)
+    ,               reduce using rule 65 (negate_exp -> power_exp .)
+    TO              reduce using rule 65 (negate_exp -> power_exp .)
+    STEP            reduce using rule 65 (negate_exp -> power_exp .)
+    ^               shift and go to state 91
+
+
+state 52
+
+    (67) power_exp -> value .
+    ^               reduce using rule 67 (power_exp -> value .)
+    /               reduce using rule 67 (power_exp -> value .)
+    *               reduce using rule 67 (power_exp -> value .)
+    -               reduce using rule 67 (power_exp -> value .)
+    +               reduce using rule 67 (power_exp -> value .)
+    LE              reduce using rule 67 (power_exp -> value .)
+    LT              reduce using rule 67 (power_exp -> value .)
+    GE              reduce using rule 67 (power_exp -> value .)
+    GT              reduce using rule 67 (power_exp -> value .)
+    EQ              reduce using rule 67 (power_exp -> value .)
+    NE              reduce using rule 67 (power_exp -> value .)
+    ASSIGN          reduce using rule 67 (power_exp -> value .)
+    AND             reduce using rule 67 (power_exp -> value .)
+    OR              reduce using rule 67 (power_exp -> value .)
+    ;               reduce using rule 67 (power_exp -> value .)
+    :               reduce using rule 67 (power_exp -> value .)
+    CR              reduce using rule 67 (power_exp -> value .)
+    ELSE            reduce using rule 67 (power_exp -> value .)
+    THEN            reduce using rule 67 (power_exp -> value .)
+    )               reduce using rule 67 (power_exp -> value .)
+    ,               reduce using rule 67 (power_exp -> value .)
+    TO              reduce using rule 67 (power_exp -> value .)
+    STEP            reduce using rule 67 (power_exp -> value .)
+
+
+state 53
+
+    (15) statement -> POKE value_list .
+    :               reduce using rule 15 (statement -> POKE value_list .)
+    CR              reduce using rule 15 (statement -> POKE value_list .)
+    ELSE            reduce using rule 15 (statement -> POKE value_list .)
+
+
+state 54
+
+    (16) statement -> OPEN value . FOR access AS # INTEGER
+    FOR             shift and go to state 92
+
+
+state 55
+
+    (25) statement -> FOR ID . ASSIGN expression TO expression STEP INTEGER
+    (26) statement -> FOR ID . ASSIGN expression TO expression
+    ASSIGN          shift and go to state 93
+
+
+state 56
+
+    (17) statement -> NEXT id_list .
+    :               reduce using rule 17 (statement -> NEXT id_list .)
+    CR              reduce using rule 17 (statement -> NEXT id_list .)
+    ELSE            reduce using rule 17 (statement -> NEXT id_list .)
+
+
+state 57
+
+    (18) statement -> LET ID . ASSIGN expression
+    ASSIGN          shift and go to state 94
+
+
+state 58
+
+    (19) statement -> INPUT # . INTEGER , id_list
+    INTEGER         shift and go to state 95
+
+
+state 59
+
+    (20) statement -> INPUT id_list .
+    :               reduce using rule 20 (statement -> INPUT id_list .)
+    CR              reduce using rule 20 (statement -> INPUT id_list .)
+    ELSE            reduce using rule 20 (statement -> INPUT id_list .)
+
+
+state 60
+
+    (21) statement -> IF expression . THEN statement ELSE statement
+    (22) statement -> IF expression . THEN statement
+    THEN            shift and go to state 96
+
+
+state 61
+
+    (23) statement -> GOSUB expression .
+    :               reduce using rule 23 (statement -> GOSUB expression .)
+    CR              reduce using rule 23 (statement -> GOSUB expression .)
+    ELSE            reduce using rule 23 (statement -> GOSUB expression .)
+
+
+state 62
+
+    (24) statement -> GOTO expression .
+    :               reduce using rule 24 (statement -> GOTO expression .)
+    CR              reduce using rule 24 (statement -> GOTO expression .)
+    ELSE            reduce using rule 24 (statement -> GOTO expression .)
+
+
+state 63
+
+    (28) statement -> DIM ID . ( integer_list )
+    (               shift and go to state 97
+
+
+state 64
+
+    (29) statement -> DATA constant_list .
+    :               reduce using rule 29 (statement -> DATA constant_list .)
+    CR              reduce using rule 29 (statement -> DATA constant_list .)
+    ELSE            reduce using rule 29 (statement -> DATA constant_list .)
+
+
+state 65
+
+    (37) constant_list -> constant .
+    (38) constant_list -> constant . , constant_list
+    :               reduce using rule 37 (constant_list -> constant .)
+    CR              reduce using rule 37 (constant_list -> constant .)
+    ELSE            reduce using rule 37 (constant_list -> constant .)
+    ,               shift and go to state 98
+
+
+state 66
+
+    (30) statement -> CLOSE # . INTEGER
+    INTEGER         shift and go to state 99
+
+
+state 67
+
+    (2) lines -> INTEGER statements newline lines .
+    $end            reduce using rule 2 (lines -> INTEGER statements newline lines .)
+
+
+state 68
+
+    (76) newline -> CR LF .
+    INTEGER         reduce using rule 76 (newline -> CR LF .)
+    $end            reduce using rule 76 (newline -> CR LF .)
+
+
+state 69
+
+    (4) statements -> statement : statements .
+    CR              reduce using rule 4 (statements -> statement : statements .)
+
+
+state 70
+
+    (36) value_list -> value , . value_list
+    (35) value_list -> . value
+    (36) value_list -> . value , value_list
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    value                          shift and go to state 31
+    value_list                     shift and go to state 100
+    constant                       shift and go to state 32
+
+state 71
+
+    (70) value -> ID ( . expression_list )
+    (41) expression_list -> . expression
+    (42) expression_list -> . expression , expression_list
+    (45) expression -> . and_exp
+    (46) expression -> . and_exp OR expression
+    (47) and_exp -> . not_exp
+    (48) and_exp -> . not_exp AND and_exp
+    (49) not_exp -> . compare_exp
+    (50) not_exp -> . NOT compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    NOT             shift and go to state 46
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    expression_list                shift and go to state 101
+    expression                     shift and go to state 102
+    and_exp                        shift and go to state 43
+    not_exp                        shift and go to state 44
+    compare_exp                    shift and go to state 45
+    add_exp                        shift and go to state 47
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 72
+
+    (72) value -> ( expression . )
+    )               shift and go to state 103
+
+
+state 73
+
+    (34) id_list -> ID , . id_list
+    (33) id_list -> . ID
+    (34) id_list -> . ID , id_list
+    ID              shift and go to state 39
+
+    id_list                        shift and go to state 104
+
+state 74
+
+    (13) statement -> PRINT # INTEGER . , print_list
+    ,               shift and go to state 105
+
+
+state 75
+
+    (44) print_list -> expression ; . print_list
+    (43) print_list -> . expression
+    (44) print_list -> . expression ; print_list
+    (45) expression -> . and_exp
+    (46) expression -> . and_exp OR expression
+    (47) and_exp -> . not_exp
+    (48) and_exp -> . not_exp AND and_exp
+    (49) not_exp -> . compare_exp
+    (50) not_exp -> . NOT compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    NOT             shift and go to state 46
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    expression                     shift and go to state 42
+    print_list                     shift and go to state 106
+    and_exp                        shift and go to state 43
+    not_exp                        shift and go to state 44
+    compare_exp                    shift and go to state 45
+    add_exp                        shift and go to state 47
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 76
+
+    (46) expression -> and_exp OR . expression
+    (45) expression -> . and_exp
+    (46) expression -> . and_exp OR expression
+    (47) and_exp -> . not_exp
+    (48) and_exp -> . not_exp AND and_exp
+    (49) not_exp -> . compare_exp
+    (50) not_exp -> . NOT compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    NOT             shift and go to state 46
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    and_exp                        shift and go to state 43
+    expression                     shift and go to state 107
+    not_exp                        shift and go to state 44
+    compare_exp                    shift and go to state 45
+    add_exp                        shift and go to state 47
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 77
+
+    (48) and_exp -> not_exp AND . and_exp
+    (47) and_exp -> . not_exp
+    (48) and_exp -> . not_exp AND and_exp
+    (49) not_exp -> . compare_exp
+    (50) not_exp -> . NOT compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    NOT             shift and go to state 46
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    not_exp                        shift and go to state 44
+    and_exp                        shift and go to state 108
+    compare_exp                    shift and go to state 45
+    add_exp                        shift and go to state 47
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 78
+
+    (50) not_exp -> NOT compare_exp .
+    AND             reduce using rule 50 (not_exp -> NOT compare_exp .)
+    OR              reduce using rule 50 (not_exp -> NOT compare_exp .)
+    ;               reduce using rule 50 (not_exp -> NOT compare_exp .)
+    :               reduce using rule 50 (not_exp -> NOT compare_exp .)
+    CR              reduce using rule 50 (not_exp -> NOT compare_exp .)
+    ELSE            reduce using rule 50 (not_exp -> NOT compare_exp .)
+    THEN            reduce using rule 50 (not_exp -> NOT compare_exp .)
+    )               reduce using rule 50 (not_exp -> NOT compare_exp .)
+    ,               reduce using rule 50 (not_exp -> NOT compare_exp .)
+    TO              reduce using rule 50 (not_exp -> NOT compare_exp .)
+    STEP            reduce using rule 50 (not_exp -> NOT compare_exp .)
+
+
+state 79
+
+    (52) compare_exp -> add_exp LE . compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    add_exp                        shift and go to state 47
+    compare_exp                    shift and go to state 109
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 80
+
+    (53) compare_exp -> add_exp LT . compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    add_exp                        shift and go to state 47
+    compare_exp                    shift and go to state 110
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 81
+
+    (54) compare_exp -> add_exp GE . compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    add_exp                        shift and go to state 47
+    compare_exp                    shift and go to state 111
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 82
+
+    (55) compare_exp -> add_exp GT . compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    add_exp                        shift and go to state 47
+    compare_exp                    shift and go to state 112
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 83
+
+    (56) compare_exp -> add_exp EQ . compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    add_exp                        shift and go to state 47
+    compare_exp                    shift and go to state 113
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 84
+
+    (57) compare_exp -> add_exp NE . compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    add_exp                        shift and go to state 47
+    compare_exp                    shift and go to state 114
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 85
+
+    (58) compare_exp -> add_exp ASSIGN . compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    add_exp                        shift and go to state 47
+    compare_exp                    shift and go to state 115
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 86
+
+    (60) add_exp -> mult_exp - . add_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    mult_exp                       shift and go to state 48
+    add_exp                        shift and go to state 116
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 87
+
+    (61) add_exp -> mult_exp + . add_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    mult_exp                       shift and go to state 48
+    add_exp                        shift and go to state 117
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 88
+
+    (66) negate_exp -> - power_exp .
+    (68) power_exp -> power_exp . ^ value
+    /               reduce using rule 66 (negate_exp -> - power_exp .)
+    *               reduce using rule 66 (negate_exp -> - power_exp .)
+    -               reduce using rule 66 (negate_exp -> - power_exp .)
+    +               reduce using rule 66 (negate_exp -> - power_exp .)
+    LE              reduce using rule 66 (negate_exp -> - power_exp .)
+    LT              reduce using rule 66 (negate_exp -> - power_exp .)
+    GE              reduce using rule 66 (negate_exp -> - power_exp .)
+    GT              reduce using rule 66 (negate_exp -> - power_exp .)
+    EQ              reduce using rule 66 (negate_exp -> - power_exp .)
+    NE              reduce using rule 66 (negate_exp -> - power_exp .)
+    ASSIGN          reduce using rule 66 (negate_exp -> - power_exp .)
+    AND             reduce using rule 66 (negate_exp -> - power_exp .)
+    OR              reduce using rule 66 (negate_exp -> - power_exp .)
+    ;               reduce using rule 66 (negate_exp -> - power_exp .)
+    :               reduce using rule 66 (negate_exp -> - power_exp .)
+    CR              reduce using rule 66 (negate_exp -> - power_exp .)
+    ELSE            reduce using rule 66 (negate_exp -> - power_exp .)
+    THEN            reduce using rule 66 (negate_exp -> - power_exp .)
+    )               reduce using rule 66 (negate_exp -> - power_exp .)
+    ,               reduce using rule 66 (negate_exp -> - power_exp .)
+    TO              reduce using rule 66 (negate_exp -> - power_exp .)
+    STEP            reduce using rule 66 (negate_exp -> - power_exp .)
+    ^               shift and go to state 91
+
+
+state 89
+
+    (63) mult_exp -> negate_exp / . mult_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    negate_exp                     shift and go to state 50
+    mult_exp                       shift and go to state 118
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 90
+
+    (64) mult_exp -> negate_exp * . mult_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    negate_exp                     shift and go to state 50
+    mult_exp                       shift and go to state 119
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 91
+
+    (68) power_exp -> power_exp ^ . value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    value                          shift and go to state 120
+    constant                       shift and go to state 32
+
+state 92
+
+    (16) statement -> OPEN value FOR . access AS # INTEGER
+    (31) access -> . OUPUT
+    (32) access -> . INPUT
+    OUPUT           shift and go to state 122
+    INPUT           shift and go to state 123
+
+    access                         shift and go to state 121
+
+state 93
+
+    (25) statement -> FOR ID ASSIGN . expression TO expression STEP INTEGER
+    (26) statement -> FOR ID ASSIGN . expression TO expression
+    (45) expression -> . and_exp
+    (46) expression -> . and_exp OR expression
+    (47) and_exp -> . not_exp
+    (48) and_exp -> . not_exp AND and_exp
+    (49) not_exp -> . compare_exp
+    (50) not_exp -> . NOT compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    NOT             shift and go to state 46
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    expression                     shift and go to state 124
+    and_exp                        shift and go to state 43
+    not_exp                        shift and go to state 44
+    compare_exp                    shift and go to state 45
+    add_exp                        shift and go to state 47
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 94
+
+    (18) statement -> LET ID ASSIGN . expression
+    (45) expression -> . and_exp
+    (46) expression -> . and_exp OR expression
+    (47) and_exp -> . not_exp
+    (48) and_exp -> . not_exp AND and_exp
+    (49) not_exp -> . compare_exp
+    (50) not_exp -> . NOT compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    NOT             shift and go to state 46
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    expression                     shift and go to state 125
+    and_exp                        shift and go to state 43
+    not_exp                        shift and go to state 44
+    compare_exp                    shift and go to state 45
+    add_exp                        shift and go to state 47
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 95
+
+    (19) statement -> INPUT # INTEGER . , id_list
+    ,               shift and go to state 126
+
+
+state 96
+
+    (21) statement -> IF expression THEN . statement ELSE statement
+    (22) statement -> IF expression THEN . statement
+    (5) statement -> . REM
+    (6) statement -> . WAIT value_list
+    (7) statement -> . SYS value
+    (8) statement -> . STOP
+    (9) statement -> . RUN
+    (10) statement -> . RESTORE
+    (11) statement -> . RETURN
+    (12) statement -> . READ id_list
+    (13) statement -> . PRINT # INTEGER , print_list
+    (14) statement -> . PRINT print_list
+    (15) statement -> . POKE value_list
+    (16) statement -> . OPEN value FOR access AS # INTEGER
+    (17) statement -> . NEXT id_list
+    (18) statement -> . LET ID ASSIGN expression
+    (19) statement -> . INPUT # INTEGER , id_list
+    (20) statement -> . INPUT id_list
+    (21) statement -> . IF expression THEN statement ELSE statement
+    (22) statement -> . IF expression THEN statement
+    (23) statement -> . GOSUB expression
+    (24) statement -> . GOTO expression
+    (25) statement -> . FOR ID ASSIGN expression TO expression STEP INTEGER
+    (26) statement -> . FOR ID ASSIGN expression TO expression
+    (27) statement -> . END
+    (28) statement -> . DIM ID ( integer_list )
+    (29) statement -> . DATA constant_list
+    (30) statement -> . CLOSE # INTEGER
+    REM             shift and go to state 5
+    WAIT            shift and go to state 6
+    SYS             shift and go to state 7
+    STOP            shift and go to state 8
+    RUN             shift and go to state 9
+    RESTORE         shift and go to state 10
+    RETURN          shift and go to state 11
+    READ            shift and go to state 12
+    PRINT           shift and go to state 13
+    POKE            shift and go to state 14
+    OPEN            shift and go to state 15
+    NEXT            shift and go to state 17
+    LET             shift and go to state 18
+    INPUT           shift and go to state 19
+    IF              shift and go to state 20
+    GOSUB           shift and go to state 21
+    GOTO            shift and go to state 22
+    FOR             shift and go to state 16
+    END             shift and go to state 23
+    DIM             shift and go to state 24
+    DATA            shift and go to state 25
+    CLOSE           shift and go to state 26
+
+    statement                      shift and go to state 127
+
+state 97
+
+    (28) statement -> DIM ID ( . integer_list )
+    (39) integer_list -> . INTEGER
+    (40) integer_list -> . INTEGER , integer_list
+    INTEGER         shift and go to state 129
+
+    integer_list                   shift and go to state 128
+
+state 98
+
+    (38) constant_list -> constant , . constant_list
+    (37) constant_list -> . constant
+    (38) constant_list -> . constant , constant_list
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    constant                       shift and go to state 65
+    constant_list                  shift and go to state 130
+
+state 99
+
+    (30) statement -> CLOSE # INTEGER .
+    :               reduce using rule 30 (statement -> CLOSE # INTEGER .)
+    CR              reduce using rule 30 (statement -> CLOSE # INTEGER .)
+    ELSE            reduce using rule 30 (statement -> CLOSE # INTEGER .)
+
+
+state 100
+
+    (36) value_list -> value , value_list .
+    :               reduce using rule 36 (value_list -> value , value_list .)
+    CR              reduce using rule 36 (value_list -> value , value_list .)
+    ELSE            reduce using rule 36 (value_list -> value , value_list .)
+
+
+state 101
+
+    (70) value -> ID ( expression_list . )
+    )               shift and go to state 131
+
+
+state 102
+
+    (41) expression_list -> expression .
+    (42) expression_list -> expression . , expression_list
+    )               reduce using rule 41 (expression_list -> expression .)
+    ,               shift and go to state 132
+
+
+state 103
+
+    (72) value -> ( expression ) .
+    ,               reduce using rule 72 (value -> ( expression ) .)
+    :               reduce using rule 72 (value -> ( expression ) .)
+    CR              reduce using rule 72 (value -> ( expression ) .)
+    ELSE            reduce using rule 72 (value -> ( expression ) .)
+    ^               reduce using rule 72 (value -> ( expression ) .)
+    /               reduce using rule 72 (value -> ( expression ) .)
+    *               reduce using rule 72 (value -> ( expression ) .)
+    -               reduce using rule 72 (value -> ( expression ) .)
+    +               reduce using rule 72 (value -> ( expression ) .)
+    LE              reduce using rule 72 (value -> ( expression ) .)
+    LT              reduce using rule 72 (value -> ( expression ) .)
+    GE              reduce using rule 72 (value -> ( expression ) .)
+    GT              reduce using rule 72 (value -> ( expression ) .)
+    EQ              reduce using rule 72 (value -> ( expression ) .)
+    NE              reduce using rule 72 (value -> ( expression ) .)
+    ASSIGN          reduce using rule 72 (value -> ( expression ) .)
+    AND             reduce using rule 72 (value -> ( expression ) .)
+    OR              reduce using rule 72 (value -> ( expression ) .)
+    ;               reduce using rule 72 (value -> ( expression ) .)
+    FOR             reduce using rule 72 (value -> ( expression ) .)
+    THEN            reduce using rule 72 (value -> ( expression ) .)
+    )               reduce using rule 72 (value -> ( expression ) .)
+    TO              reduce using rule 72 (value -> ( expression ) .)
+    STEP            reduce using rule 72 (value -> ( expression ) .)
+
+
+state 104
+
+    (34) id_list -> ID , id_list .
+    :               reduce using rule 34 (id_list -> ID , id_list .)
+    CR              reduce using rule 34 (id_list -> ID , id_list .)
+    ELSE            reduce using rule 34 (id_list -> ID , id_list .)
+
+
+state 105
+
+    (13) statement -> PRINT # INTEGER , . print_list
+    (43) print_list -> . expression
+    (44) print_list -> . expression ; print_list
+    (45) expression -> . and_exp
+    (46) expression -> . and_exp OR expression
+    (47) and_exp -> . not_exp
+    (48) and_exp -> . not_exp AND and_exp
+    (49) not_exp -> . compare_exp
+    (50) not_exp -> . NOT compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    NOT             shift and go to state 46
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    print_list                     shift and go to state 133
+    expression                     shift and go to state 42
+    and_exp                        shift and go to state 43
+    not_exp                        shift and go to state 44
+    compare_exp                    shift and go to state 45
+    add_exp                        shift and go to state 47
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 106
+
+    (44) print_list -> expression ; print_list .
+    :               reduce using rule 44 (print_list -> expression ; print_list .)
+    CR              reduce using rule 44 (print_list -> expression ; print_list .)
+    ELSE            reduce using rule 44 (print_list -> expression ; print_list .)
+
+
+state 107
+
+    (46) expression -> and_exp OR expression .
+    ;               reduce using rule 46 (expression -> and_exp OR expression .)
+    :               reduce using rule 46 (expression -> and_exp OR expression .)
+    CR              reduce using rule 46 (expression -> and_exp OR expression .)
+    ELSE            reduce using rule 46 (expression -> and_exp OR expression .)
+    THEN            reduce using rule 46 (expression -> and_exp OR expression .)
+    )               reduce using rule 46 (expression -> and_exp OR expression .)
+    ,               reduce using rule 46 (expression -> and_exp OR expression .)
+    TO              reduce using rule 46 (expression -> and_exp OR expression .)
+    STEP            reduce using rule 46 (expression -> and_exp OR expression .)
+
+
+state 108
+
+    (48) and_exp -> not_exp AND and_exp .
+    OR              reduce using rule 48 (and_exp -> not_exp AND and_exp .)
+    ;               reduce using rule 48 (and_exp -> not_exp AND and_exp .)
+    :               reduce using rule 48 (and_exp -> not_exp AND and_exp .)
+    CR              reduce using rule 48 (and_exp -> not_exp AND and_exp .)
+    ELSE            reduce using rule 48 (and_exp -> not_exp AND and_exp .)
+    THEN            reduce using rule 48 (and_exp -> not_exp AND and_exp .)
+    )               reduce using rule 48 (and_exp -> not_exp AND and_exp .)
+    ,               reduce using rule 48 (and_exp -> not_exp AND and_exp .)
+    TO              reduce using rule 48 (and_exp -> not_exp AND and_exp .)
+    STEP            reduce using rule 48 (and_exp -> not_exp AND and_exp .)
+
+
+state 109
+
+    (52) compare_exp -> add_exp LE compare_exp .
+    AND             reduce using rule 52 (compare_exp -> add_exp LE compare_exp .)
+    OR              reduce using rule 52 (compare_exp -> add_exp LE compare_exp .)
+    ;               reduce using rule 52 (compare_exp -> add_exp LE compare_exp .)
+    :               reduce using rule 52 (compare_exp -> add_exp LE compare_exp .)
+    CR              reduce using rule 52 (compare_exp -> add_exp LE compare_exp .)
+    ELSE            reduce using rule 52 (compare_exp -> add_exp LE compare_exp .)
+    THEN            reduce using rule 52 (compare_exp -> add_exp LE compare_exp .)
+    )               reduce using rule 52 (compare_exp -> add_exp LE compare_exp .)
+    ,               reduce using rule 52 (compare_exp -> add_exp LE compare_exp .)
+    TO              reduce using rule 52 (compare_exp -> add_exp LE compare_exp .)
+    STEP            reduce using rule 52 (compare_exp -> add_exp LE compare_exp .)
+
+
+state 110
+
+    (53) compare_exp -> add_exp LT compare_exp .
+    AND             reduce using rule 53 (compare_exp -> add_exp LT compare_exp .)
+    OR              reduce using rule 53 (compare_exp -> add_exp LT compare_exp .)
+    ;               reduce using rule 53 (compare_exp -> add_exp LT compare_exp .)
+    :               reduce using rule 53 (compare_exp -> add_exp LT compare_exp .)
+    CR              reduce using rule 53 (compare_exp -> add_exp LT compare_exp .)
+    ELSE            reduce using rule 53 (compare_exp -> add_exp LT compare_exp .)
+    THEN            reduce using rule 53 (compare_exp -> add_exp LT compare_exp .)
+    )               reduce using rule 53 (compare_exp -> add_exp LT compare_exp .)
+    ,               reduce using rule 53 (compare_exp -> add_exp LT compare_exp .)
+    TO              reduce using rule 53 (compare_exp -> add_exp LT compare_exp .)
+    STEP            reduce using rule 53 (compare_exp -> add_exp LT compare_exp .)
+
+
+state 111
+
+    (54) compare_exp -> add_exp GE compare_exp .
+    AND             reduce using rule 54 (compare_exp -> add_exp GE compare_exp .)
+    OR              reduce using rule 54 (compare_exp -> add_exp GE compare_exp .)
+    ;               reduce using rule 54 (compare_exp -> add_exp GE compare_exp .)
+    :               reduce using rule 54 (compare_exp -> add_exp GE compare_exp .)
+    CR              reduce using rule 54 (compare_exp -> add_exp GE compare_exp .)
+    ELSE            reduce using rule 54 (compare_exp -> add_exp GE compare_exp .)
+    THEN            reduce using rule 54 (compare_exp -> add_exp GE compare_exp .)
+    )               reduce using rule 54 (compare_exp -> add_exp GE compare_exp .)
+    ,               reduce using rule 54 (compare_exp -> add_exp GE compare_exp .)
+    TO              reduce using rule 54 (compare_exp -> add_exp GE compare_exp .)
+    STEP            reduce using rule 54 (compare_exp -> add_exp GE compare_exp .)
+
+
+state 112
+
+    (55) compare_exp -> add_exp GT compare_exp .
+    AND             reduce using rule 55 (compare_exp -> add_exp GT compare_exp .)
+    OR              reduce using rule 55 (compare_exp -> add_exp GT compare_exp .)
+    ;               reduce using rule 55 (compare_exp -> add_exp GT compare_exp .)
+    :               reduce using rule 55 (compare_exp -> add_exp GT compare_exp .)
+    CR              reduce using rule 55 (compare_exp -> add_exp GT compare_exp .)
+    ELSE            reduce using rule 55 (compare_exp -> add_exp GT compare_exp .)
+    THEN            reduce using rule 55 (compare_exp -> add_exp GT compare_exp .)
+    )               reduce using rule 55 (compare_exp -> add_exp GT compare_exp .)
+    ,               reduce using rule 55 (compare_exp -> add_exp GT compare_exp .)
+    TO              reduce using rule 55 (compare_exp -> add_exp GT compare_exp .)
+    STEP            reduce using rule 55 (compare_exp -> add_exp GT compare_exp .)
+
+
+state 113
+
+    (56) compare_exp -> add_exp EQ compare_exp .
+    AND             reduce using rule 56 (compare_exp -> add_exp EQ compare_exp .)
+    OR              reduce using rule 56 (compare_exp -> add_exp EQ compare_exp .)
+    ;               reduce using rule 56 (compare_exp -> add_exp EQ compare_exp .)
+    :               reduce using rule 56 (compare_exp -> add_exp EQ compare_exp .)
+    CR              reduce using rule 56 (compare_exp -> add_exp EQ compare_exp .)
+    ELSE            reduce using rule 56 (compare_exp -> add_exp EQ compare_exp .)
+    THEN            reduce using rule 56 (compare_exp -> add_exp EQ compare_exp .)
+    )               reduce using rule 56 (compare_exp -> add_exp EQ compare_exp .)
+    ,               reduce using rule 56 (compare_exp -> add_exp EQ compare_exp .)
+    TO              reduce using rule 56 (compare_exp -> add_exp EQ compare_exp .)
+    STEP            reduce using rule 56 (compare_exp -> add_exp EQ compare_exp .)
+
+
+state 114
+
+    (57) compare_exp -> add_exp NE compare_exp .
+    AND             reduce using rule 57 (compare_exp -> add_exp NE compare_exp .)
+    OR              reduce using rule 57 (compare_exp -> add_exp NE compare_exp .)
+    ;               reduce using rule 57 (compare_exp -> add_exp NE compare_exp .)
+    :               reduce using rule 57 (compare_exp -> add_exp NE compare_exp .)
+    CR              reduce using rule 57 (compare_exp -> add_exp NE compare_exp .)
+    ELSE            reduce using rule 57 (compare_exp -> add_exp NE compare_exp .)
+    THEN            reduce using rule 57 (compare_exp -> add_exp NE compare_exp .)
+    )               reduce using rule 57 (compare_exp -> add_exp NE compare_exp .)
+    ,               reduce using rule 57 (compare_exp -> add_exp NE compare_exp .)
+    TO              reduce using rule 57 (compare_exp -> add_exp NE compare_exp .)
+    STEP            reduce using rule 57 (compare_exp -> add_exp NE compare_exp .)
+
+
+state 115
+
+    (58) compare_exp -> add_exp ASSIGN compare_exp .
+    AND             reduce using rule 58 (compare_exp -> add_exp ASSIGN compare_exp .)
+    OR              reduce using rule 58 (compare_exp -> add_exp ASSIGN compare_exp .)
+    ;               reduce using rule 58 (compare_exp -> add_exp ASSIGN compare_exp .)
+    :               reduce using rule 58 (compare_exp -> add_exp ASSIGN compare_exp .)
+    CR              reduce using rule 58 (compare_exp -> add_exp ASSIGN compare_exp .)
+    ELSE            reduce using rule 58 (compare_exp -> add_exp ASSIGN compare_exp .)
+    THEN            reduce using rule 58 (compare_exp -> add_exp ASSIGN compare_exp .)
+    )               reduce using rule 58 (compare_exp -> add_exp ASSIGN compare_exp .)
+    ,               reduce using rule 58 (compare_exp -> add_exp ASSIGN compare_exp .)
+    TO              reduce using rule 58 (compare_exp -> add_exp ASSIGN compare_exp .)
+    STEP            reduce using rule 58 (compare_exp -> add_exp ASSIGN compare_exp .)
+
+
+state 116
+
+    (60) add_exp -> mult_exp - add_exp .
+    LE              reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    LT              reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    GE              reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    GT              reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    EQ              reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    NE              reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    ASSIGN          reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    AND             reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    OR              reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    ;               reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    :               reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    CR              reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    ELSE            reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    THEN            reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    )               reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    ,               reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    TO              reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+    STEP            reduce using rule 60 (add_exp -> mult_exp - add_exp .)
+
+
+state 117
+
+    (61) add_exp -> mult_exp + add_exp .
+    LE              reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    LT              reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    GE              reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    GT              reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    EQ              reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    NE              reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    ASSIGN          reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    AND             reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    OR              reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    ;               reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    :               reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    CR              reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    ELSE            reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    THEN            reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    )               reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    ,               reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    TO              reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+    STEP            reduce using rule 61 (add_exp -> mult_exp + add_exp .)
+
+
+state 118
+
+    (63) mult_exp -> negate_exp / mult_exp .
+    -               reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    +               reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    LE              reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    LT              reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    GE              reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    GT              reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    EQ              reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    NE              reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    ASSIGN          reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    AND             reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    OR              reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    ;               reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    :               reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    CR              reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    ELSE            reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    THEN            reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    )               reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    ,               reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    TO              reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+    STEP            reduce using rule 63 (mult_exp -> negate_exp / mult_exp .)
+
+
+state 119
+
+    (64) mult_exp -> negate_exp * mult_exp .
+    -               reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    +               reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    LE              reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    LT              reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    GE              reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    GT              reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    EQ              reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    NE              reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    ASSIGN          reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    AND             reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    OR              reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    ;               reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    :               reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    CR              reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    ELSE            reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    THEN            reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    )               reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    ,               reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    TO              reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+    STEP            reduce using rule 64 (mult_exp -> negate_exp * mult_exp .)
+
+
+state 120
+
+    (68) power_exp -> power_exp ^ value .
+    ^               reduce using rule 68 (power_exp -> power_exp ^ value .)
+    /               reduce using rule 68 (power_exp -> power_exp ^ value .)
+    *               reduce using rule 68 (power_exp -> power_exp ^ value .)
+    -               reduce using rule 68 (power_exp -> power_exp ^ value .)
+    +               reduce using rule 68 (power_exp -> power_exp ^ value .)
+    LE              reduce using rule 68 (power_exp -> power_exp ^ value .)
+    LT              reduce using rule 68 (power_exp -> power_exp ^ value .)
+    GE              reduce using rule 68 (power_exp -> power_exp ^ value .)
+    GT              reduce using rule 68 (power_exp -> power_exp ^ value .)
+    EQ              reduce using rule 68 (power_exp -> power_exp ^ value .)
+    NE              reduce using rule 68 (power_exp -> power_exp ^ value .)
+    ASSIGN          reduce using rule 68 (power_exp -> power_exp ^ value .)
+    AND             reduce using rule 68 (power_exp -> power_exp ^ value .)
+    OR              reduce using rule 68 (power_exp -> power_exp ^ value .)
+    ;               reduce using rule 68 (power_exp -> power_exp ^ value .)
+    :               reduce using rule 68 (power_exp -> power_exp ^ value .)
+    CR              reduce using rule 68 (power_exp -> power_exp ^ value .)
+    ELSE            reduce using rule 68 (power_exp -> power_exp ^ value .)
+    THEN            reduce using rule 68 (power_exp -> power_exp ^ value .)
+    )               reduce using rule 68 (power_exp -> power_exp ^ value .)
+    ,               reduce using rule 68 (power_exp -> power_exp ^ value .)
+    TO              reduce using rule 68 (power_exp -> power_exp ^ value .)
+    STEP            reduce using rule 68 (power_exp -> power_exp ^ value .)
+
+
+state 121
+
+    (16) statement -> OPEN value FOR access . AS # INTEGER
+    AS              shift and go to state 134
+
+
+state 122
+
+    (31) access -> OUPUT .
+    AS              reduce using rule 31 (access -> OUPUT .)
+
+
+state 123
+
+    (32) access -> INPUT .
+    AS              reduce using rule 32 (access -> INPUT .)
+
+
+state 124
+
+    (25) statement -> FOR ID ASSIGN expression . TO expression STEP INTEGER
+    (26) statement -> FOR ID ASSIGN expression . TO expression
+    TO              shift and go to state 135
+
+
+state 125
+
+    (18) statement -> LET ID ASSIGN expression .
+    :               reduce using rule 18 (statement -> LET ID ASSIGN expression .)
+    CR              reduce using rule 18 (statement -> LET ID ASSIGN expression .)
+    ELSE            reduce using rule 18 (statement -> LET ID ASSIGN expression .)
+
+
+state 126
+
+    (19) statement -> INPUT # INTEGER , . id_list
+    (33) id_list -> . ID
+    (34) id_list -> . ID , id_list
+    ID              shift and go to state 39
+
+    id_list                        shift and go to state 136
+
+state 127
+
+    (21) statement -> IF expression THEN statement . ELSE statement
+    (22) statement -> IF expression THEN statement .
+  ! shift/reduce conflict for ELSE resolved as shift
+    ELSE            shift and go to state 137
+    :               reduce using rule 22 (statement -> IF expression THEN statement .)
+    CR              reduce using rule 22 (statement -> IF expression THEN statement .)
+
+
+state 128
+
+    (28) statement -> DIM ID ( integer_list . )
+    )               shift and go to state 138
+
+
+state 129
+
+    (39) integer_list -> INTEGER .
+    (40) integer_list -> INTEGER . , integer_list
+    )               reduce using rule 39 (integer_list -> INTEGER .)
+    ,               shift and go to state 139
+
+
+state 130
+
+    (38) constant_list -> constant , constant_list .
+    :               reduce using rule 38 (constant_list -> constant , constant_list .)
+    CR              reduce using rule 38 (constant_list -> constant , constant_list .)
+    ELSE            reduce using rule 38 (constant_list -> constant , constant_list .)
+
+
+state 131
+
+    (70) value -> ID ( expression_list ) .
+    ,               reduce using rule 70 (value -> ID ( expression_list ) .)
+    :               reduce using rule 70 (value -> ID ( expression_list ) .)
+    CR              reduce using rule 70 (value -> ID ( expression_list ) .)
+    ELSE            reduce using rule 70 (value -> ID ( expression_list ) .)
+    ^               reduce using rule 70 (value -> ID ( expression_list ) .)
+    /               reduce using rule 70 (value -> ID ( expression_list ) .)
+    *               reduce using rule 70 (value -> ID ( expression_list ) .)
+    -               reduce using rule 70 (value -> ID ( expression_list ) .)
+    +               reduce using rule 70 (value -> ID ( expression_list ) .)
+    LE              reduce using rule 70 (value -> ID ( expression_list ) .)
+    LT              reduce using rule 70 (value -> ID ( expression_list ) .)
+    GE              reduce using rule 70 (value -> ID ( expression_list ) .)
+    GT              reduce using rule 70 (value -> ID ( expression_list ) .)
+    EQ              reduce using rule 70 (value -> ID ( expression_list ) .)
+    NE              reduce using rule 70 (value -> ID ( expression_list ) .)
+    ASSIGN          reduce using rule 70 (value -> ID ( expression_list ) .)
+    AND             reduce using rule 70 (value -> ID ( expression_list ) .)
+    OR              reduce using rule 70 (value -> ID ( expression_list ) .)
+    ;               reduce using rule 70 (value -> ID ( expression_list ) .)
+    FOR             reduce using rule 70 (value -> ID ( expression_list ) .)
+    THEN            reduce using rule 70 (value -> ID ( expression_list ) .)
+    )               reduce using rule 70 (value -> ID ( expression_list ) .)
+    TO              reduce using rule 70 (value -> ID ( expression_list ) .)
+    STEP            reduce using rule 70 (value -> ID ( expression_list ) .)
+
+
+state 132
+
+    (42) expression_list -> expression , . expression_list
+    (41) expression_list -> . expression
+    (42) expression_list -> . expression , expression_list
+    (45) expression -> . and_exp
+    (46) expression -> . and_exp OR expression
+    (47) and_exp -> . not_exp
+    (48) and_exp -> . not_exp AND and_exp
+    (49) not_exp -> . compare_exp
+    (50) not_exp -> . NOT compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    NOT             shift and go to state 46
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    expression                     shift and go to state 102
+    expression_list                shift and go to state 140
+    and_exp                        shift and go to state 43
+    not_exp                        shift and go to state 44
+    compare_exp                    shift and go to state 45
+    add_exp                        shift and go to state 47
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 133
+
+    (13) statement -> PRINT # INTEGER , print_list .
+    :               reduce using rule 13 (statement -> PRINT # INTEGER , print_list .)
+    CR              reduce using rule 13 (statement -> PRINT # INTEGER , print_list .)
+    ELSE            reduce using rule 13 (statement -> PRINT # INTEGER , print_list .)
+
+
+state 134
+
+    (16) statement -> OPEN value FOR access AS . # INTEGER
+    #               shift and go to state 141
+
+
+state 135
+
+    (25) statement -> FOR ID ASSIGN expression TO . expression STEP INTEGER
+    (26) statement -> FOR ID ASSIGN expression TO . expression
+    (45) expression -> . and_exp
+    (46) expression -> . and_exp OR expression
+    (47) and_exp -> . not_exp
+    (48) and_exp -> . not_exp AND and_exp
+    (49) not_exp -> . compare_exp
+    (50) not_exp -> . NOT compare_exp
+    (51) compare_exp -> . add_exp
+    (52) compare_exp -> . add_exp LE compare_exp
+    (53) compare_exp -> . add_exp LT compare_exp
+    (54) compare_exp -> . add_exp GE compare_exp
+    (55) compare_exp -> . add_exp GT compare_exp
+    (56) compare_exp -> . add_exp EQ compare_exp
+    (57) compare_exp -> . add_exp NE compare_exp
+    (58) compare_exp -> . add_exp ASSIGN compare_exp
+    (59) add_exp -> . mult_exp
+    (60) add_exp -> . mult_exp - add_exp
+    (61) add_exp -> . mult_exp + add_exp
+    (62) mult_exp -> . negate_exp
+    (63) mult_exp -> . negate_exp / mult_exp
+    (64) mult_exp -> . negate_exp * mult_exp
+    (65) negate_exp -> . power_exp
+    (66) negate_exp -> . - power_exp
+    (67) power_exp -> . value
+    (68) power_exp -> . power_exp ^ value
+    (69) value -> . constant
+    (70) value -> . ID ( expression_list )
+    (71) value -> . ID
+    (72) value -> . ( expression )
+    (73) constant -> . STRING
+    (74) constant -> . INTEGER
+    NOT             shift and go to state 46
+    -               shift and go to state 49
+    ID              shift and go to state 33
+    (               shift and go to state 34
+    STRING          shift and go to state 35
+    INTEGER         shift and go to state 36
+
+    expression                     shift and go to state 142
+    and_exp                        shift and go to state 43
+    not_exp                        shift and go to state 44
+    compare_exp                    shift and go to state 45
+    add_exp                        shift and go to state 47
+    mult_exp                       shift and go to state 48
+    negate_exp                     shift and go to state 50
+    power_exp                      shift and go to state 51
+    value                          shift and go to state 52
+    constant                       shift and go to state 32
+
+state 136
+
+    (19) statement -> INPUT # INTEGER , id_list .
+    :               reduce using rule 19 (statement -> INPUT # INTEGER , id_list .)
+    CR              reduce using rule 19 (statement -> INPUT # INTEGER , id_list .)
+    ELSE            reduce using rule 19 (statement -> INPUT # INTEGER , id_list .)
+
+
+state 137
+
+    (21) statement -> IF expression THEN statement ELSE . statement
+    (5) statement -> . REM
+    (6) statement -> . WAIT value_list
+    (7) statement -> . SYS value
+    (8) statement -> . STOP
+    (9) statement -> . RUN
+    (10) statement -> . RESTORE
+    (11) statement -> . RETURN
+    (12) statement -> . READ id_list
+    (13) statement -> . PRINT # INTEGER , print_list
+    (14) statement -> . PRINT print_list
+    (15) statement -> . POKE value_list
+    (16) statement -> . OPEN value FOR access AS # INTEGER
+    (17) statement -> . NEXT id_list
+    (18) statement -> . LET ID ASSIGN expression
+    (19) statement -> . INPUT # INTEGER , id_list
+    (20) statement -> . INPUT id_list
+    (21) statement -> . IF expression THEN statement ELSE statement
+    (22) statement -> . IF expression THEN statement
+    (23) statement -> . GOSUB expression
+    (24) statement -> . GOTO expression
+    (25) statement -> . FOR ID ASSIGN expression TO expression STEP INTEGER
+    (26) statement -> . FOR ID ASSIGN expression TO expression
+    (27) statement -> . END
+    (28) statement -> . DIM ID ( integer_list )
+    (29) statement -> . DATA constant_list
+    (30) statement -> . CLOSE # INTEGER
+    REM             shift and go to state 5
+    WAIT            shift and go to state 6
+    SYS             shift and go to state 7
+    STOP            shift and go to state 8
+    RUN             shift and go to state 9
+    RESTORE         shift and go to state 10
+    RETURN          shift and go to state 11
+    READ            shift and go to state 12
+    PRINT           shift and go to state 13
+    POKE            shift and go to state 14
+    OPEN            shift and go to state 15
+    NEXT            shift and go to state 17
+    LET             shift and go to state 18
+    INPUT           shift and go to state 19
+    IF              shift and go to state 20
+    GOSUB           shift and go to state 21
+    GOTO            shift and go to state 22
+    FOR             shift and go to state 16
+    END             shift and go to state 23
+    DIM             shift and go to state 24
+    DATA            shift and go to state 25
+    CLOSE           shift and go to state 26
+
+    statement                      shift and go to state 143
+
+state 138
+
+    (28) statement -> DIM ID ( integer_list ) .
+    :               reduce using rule 28 (statement -> DIM ID ( integer_list ) .)
+    CR              reduce using rule 28 (statement -> DIM ID ( integer_list ) .)
+    ELSE            reduce using rule 28 (statement -> DIM ID ( integer_list ) .)
+
+
+state 139
+
+    (40) integer_list -> INTEGER , . integer_list
+    (39) integer_list -> . INTEGER
+    (40) integer_list -> . INTEGER , integer_list
+    INTEGER         shift and go to state 129
+
+    integer_list                   shift and go to state 144
+
+state 140
+
+    (42) expression_list -> expression , expression_list .
+    )               reduce using rule 42 (expression_list -> expression , expression_list .)
+
+
+state 141
+
+    (16) statement -> OPEN value FOR access AS # . INTEGER
+    INTEGER         shift and go to state 145
+
+
+state 142
+
+    (25) statement -> FOR ID ASSIGN expression TO expression . STEP INTEGER
+    (26) statement -> FOR ID ASSIGN expression TO expression .
+    STEP            shift and go to state 146
+    :               reduce using rule 26 (statement -> FOR ID ASSIGN expression TO expression .)
+    CR              reduce using rule 26 (statement -> FOR ID ASSIGN expression TO expression .)
+    ELSE            reduce using rule 26 (statement -> FOR ID ASSIGN expression TO expression .)
+
+
+state 143
+
+    (21) statement -> IF expression THEN statement ELSE statement .
+    :               reduce using rule 21 (statement -> IF expression THEN statement ELSE statement .)
+    CR              reduce using rule 21 (statement -> IF expression THEN statement ELSE statement .)
+    ELSE            reduce using rule 21 (statement -> IF expression THEN statement ELSE statement .)
+
+
+state 144
+
+    (40) integer_list -> INTEGER , integer_list .
+    )               reduce using rule 40 (integer_list -> INTEGER , integer_list .)
+
+
+state 145
+
+    (16) statement -> OPEN value FOR access AS # INTEGER .
+    :               reduce using rule 16 (statement -> OPEN value FOR access AS # INTEGER .)
+    CR              reduce using rule 16 (statement -> OPEN value FOR access AS # INTEGER .)
+    ELSE            reduce using rule 16 (statement -> OPEN value FOR access AS # INTEGER .)
+
+
+state 146
+
+    (25) statement -> FOR ID ASSIGN expression TO expression STEP . INTEGER
+    INTEGER         shift and go to state 147
+
+
+state 147
+
+    (25) statement -> FOR ID ASSIGN expression TO expression STEP INTEGER .
+    :               reduce using rule 25 (statement -> FOR ID ASSIGN expression TO expression STEP INTEGER .)
+    CR              reduce using rule 25 (statement -> FOR ID ASSIGN expression TO expression STEP INTEGER .)
+    ELSE            reduce using rule 25 (statement -> FOR ID ASSIGN expression TO expression STEP INTEGER .)
+
+
+Conflicts:
+
+shift/reduce conflict for ELSE in state 127 resolved as shift
