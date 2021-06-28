@@ -2,7 +2,7 @@ import os
 import codecs
 import sly
 from lexer import Lexer
-from analizador_semantico import *
+from graph import *
 
 
 class Parser(sly.Parser):
