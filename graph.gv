@@ -1,0 +1,107 @@
+digraph {
+	3[label= "10"]
+	6[label= "SALUDO$"]
+	7[label= "="]
+	18[label= "HOLA"]
+	17[label= "Constant2"]
+	17 -> 18
+	16[label= "Value4"]
+	16 -> 17
+	15[label= "Power_exp2"]
+	15 -> 16
+	14[label= "Negate_exp2"]
+	14 -> 15
+	13[label= "Mult_exp3"]
+	13 -> 14
+	12[label= "Add_exp3"]
+	12 -> 13
+	11[label= "Compare_exp8"]
+	11 -> 12
+	10[label= "Not_exp2"]
+	10 -> 11
+	9[label= "And_exp2"]
+	9 -> 10
+	8[label= "Expression2"]
+	8 -> 9
+	5[label= "statement13"]
+	5 -> 6
+	5 -> 7
+	5 -> 8
+	4[label= "statements2"]
+	4 -> 5
+	19[label= "Newline1"]
+	21[label= "20"]
+	24[label= "n"]
+	25[label= "="]
+	36[label= "1"]
+	35[label= "Constant1"]
+	35 -> 36
+	34[label= "Value4"]
+	34 -> 35
+	33[label= "Power_exp2"]
+	33 -> 34
+	32[label= "Negate_exp2"]
+	32 -> 33
+	31[label= "Mult_exp3"]
+	31 -> 32
+	30[label= "Add_exp3"]
+	30 -> 31
+	29[label= "Compare_exp8"]
+	29 -> 30
+	28[label= "Not_exp2"]
+	28 -> 29
+	27[label= "And_exp2"]
+	27 -> 28
+	26[label= "Expression2"]
+	26 -> 27
+	47[label= "8"]
+	46[label= "Constant1"]
+	46 -> 47
+	45[label= "Value4"]
+	45 -> 46
+	44[label= "Power_exp2"]
+	44 -> 45
+	43[label= "Negate_exp2"]
+	43 -> 44
+	42[label= "Mult_exp3"]
+	42 -> 43
+	41[label= "Add_exp3"]
+	41 -> 42
+	40[label= "Compare_exp8"]
+	40 -> 41
+	39[label= "Not_exp2"]
+	39 -> 40
+	38[label= "And_exp2"]
+	38 -> 39
+	37[label= "Expression2"]
+	37 -> 38
+	23[label= "statement5"]
+	23 -> 24
+	23 -> 25
+	23 -> 26
+	23 -> 37
+	22[label= "statements2"]
+	22 -> 23
+	48[label= "Newline1"]
+	50[label= "30"]
+	52[label= "statement4"]
+	51[label= "statements2"]
+	51 -> 52
+	53[label= "Newline1"]
+	49[label= "lines2"]
+	49 -> 50
+	49 -> 51
+	49 -> 53
+	20[label= "lines1"]
+	20 -> 21
+	20 -> 22
+	20 -> 48
+	20 -> 49
+	2[label= "lines1"]
+	2 -> 3
+	2 -> 4
+	2 -> 19
+	2 -> 20
+	1[label= "program"]
+	1 -> 2
+	}

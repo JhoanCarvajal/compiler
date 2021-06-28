@@ -13,6 +13,8 @@ String         = '"'{String Chars}*'"'
 Integer        = {digit}+ 
 Real           = {digit}+.{digit}+ 
 
+<Program> ::= <Lines> 
+
 <Lines>       ::= Integer <Statements> NewLine <Lines> 
                 | Integer <Statements> NewLine
 
