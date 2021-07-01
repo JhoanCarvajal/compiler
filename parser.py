@@ -553,3 +553,5 @@ if __name__ == '__main__':
 
     render('dot', 'png', 'graph.gv')
 
+    os.system(f"C:\\Users\\Jhoan\\Documents\\personal\\universidad\\compiler\\graph.gv.png")
+

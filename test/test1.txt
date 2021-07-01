@@ -1,0 +1,25 @@
+10 PRINT "Cuál es su nombre:"
+15 INPUT NN$
+20 PRINT "Bienvenido al 'asterisquero' "; NN$
+30 PRINT "con cuántos asteriscos inicia [Cero sale]:"
+35 INPUT N
+40 IF N<=0 THEN GOTO 200
+50 LET AS$=""
+60 FOR I=1 TO N
+70   LET AS$=AS$+"*"
+80 NEXT I
+90 PRINT "AQUI ESTAN:"; AS$
+100 PRINT "Desea más asteriscos:"
+105 INPUT SN$
+110 IF SN$="" THEN GOTO 100
+120 IF SN$<>"S" OR SN$<>"s" THEN GOTO 200
+130 PRINT "CUANTAS VECES DESEA REPETIRLOS [Cero sale]:"
+135 INPUT VECES
+140 IF VECES<=0 THEN GOTO 200
+150 FOR I=1 TO VECES
+160   PRINT AS$
+170 NEXT I
+180 PRINT I
+185 REM A repetir todo el ciclo (comentario)
+190 GOTO 25
+200 END
